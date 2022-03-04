@@ -56,7 +56,7 @@ public class Events {
             // Initialize client that will be used to send requests. This client only needs to be created
             // once, and can be reused for multiple requests.
 
-            String jsonPath="src/main/java/com/example/demo/json/universal-chain-342203-af8ccc9a3556.json";
+            String jsonPath="main/java/com/example/demo/json/universal-chain-342203-af8ccc9a3556.json";
             GoogleCredentials credentials= null;
             try {
                 credentials = GoogleCredentials.fromStream(new FileInputStream(jsonPath));
