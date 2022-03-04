@@ -49,5 +49,5 @@ jobs:
         with:
           app-name: 'TimskiProekt'
           slot-name: 'Production'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_2F90BFBF529D46D3A4AA8072EC80F979 }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_C3138D45F1F041E9B6FD6B8034E28299 }}
           package: '*.jar'
