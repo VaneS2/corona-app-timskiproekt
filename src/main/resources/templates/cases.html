@@ -1,0 +1,669 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <style>
+    #kopce {
+      background-color: orange;
+      color: black;
+
+    }
+    #lala {text-align: center;
+      margin-top:17.2rem;
+      margin-bottom: 300px;
+      font-size: 110px;
+      color: orange;
+    }
+    #lala1 {text-align: center;
+      margin-top:17.2rem;
+      margin-bottom: 300px;
+      font-size: 110px;
+      color: orange;
+    }
+
+  </style>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="UTF-8"/>
+    <title>Home</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css" rel="stylesheet" >
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" ></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.min.js" integrity="sha384-Atwg2Pkwv9vp0ygtn1JAojH0nYbwNJLPhwyoVbhoPwBhjQPR5VtM2+xf0Uwh9KtT" crossorigin="anonymous"></script>
+
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+
+    <!-- Include Date Range Picker -->
+    <script type="text/javascript" src="//cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.js"></script>
+    <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/bootstrap.daterangepicker/2/daterangepicker.css" />
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+      p,span{
+        font-family: "Roboto";
+      }
+    </style>
+
+  </head>
+
+</head>
+<body>
+<nav style="background: black" class="navbar navbar-expand-lg navbar-dark bg-dark static-top">
+  <div class="container">
+    <a class="navbar-brand" href="#">
+
+      <div> <img src="https://upload.wikimedia.org/wikipedia/commons/8/82/SARS-CoV-2_without_background.png" alt="..." height="40"> &nbsp;COVID-19 NEWS</div>
+    </a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+
+    <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="/home">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/events">News</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/cases">Statistics</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/global">Global</a>
+        </li>
+
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
+<script th:inline="javascript">
+  var myval = /*[[${nastani}]]*/;
+
+
+
+  google.charts.load('current', {'packages':['corechart']});
+  google.charts.setOnLoadCallback(drawChart);
+
+  var d=new Array()
+
+  console.log(d[0]);
+  d[0]=['Year','Deaths']
+  for(var i=0;i<myval.length;i++)
+  {
+
+    d[i+1]=[myval[i].datum + " ",myval[i].deaths];
+  }
+  console.log(d)
+  function drawChart() {
+    var data = google.visualization.arrayToDataTable(d,false);
+
+    var options = {
+      title: 'Deaths',
+
+      curveType: 'function',
+      colors: ['red'],
+      legend: { position: 'bottom' }, chartArea: {
+        left: 40,
+        width: '100%'
+      },
+      legend: {
+        position: 'top'
+      },
+      width: '100%'
+    };
+
+    var chart = new google.visualization.LineChart(document.getElementById('curve_chart2'));
+
+    chart.draw(data, options)
+  }
+</script>
+
+<style>
+  .chart {
+    width: 100%;
+    min-height: 450px;
+  }
+  .row {
+    margin:0 !important;
+  }
+</style>
+
+<script  th:inline="javascript" >
+  var myval = /*[[${nastani}]]*/
+          console.log(d[0]);
+  d[0]=['Year','Deaths']
+  for(var i=0;i<myval.length;i++)
+  {
+
+    d[i+1]=[myval[i].datum + " ",myval[i].deaths];
+  }
+  console.log(d)
+
+
+  google.load("current",  {packages:["corechart"]});
+  google.charts.setOnLoadCallback(drawChart1);
+  function drawChart1() {
+    var data = google.visualization.arrayToDataTable(d,false);
+
+    var options = {
+      title: 'Deaths',
+      colors:['red'],
+      hAxis: {title: 'Date', titleTextStyle: {color: 'black'}}
+    };
+
+    var chart = new google.visualization.LineChart(document.getElementById('chart_div2'));
+    chart.draw(data, options);
+  }
+
+
+
+  var f=new Array()
+
+
+  f[0]=['Year', 'Cases']
+  for(var i=0;i<myval.length;i++)
+  {
+
+    f[i+1]=[myval[i].datum + " ",myval[i].confirmed];
+  }
+
+  google.load("current",  {packages:["corechart"]});
+  google.charts.setOnLoadCallback(drawChart2);
+  function drawChart2() {
+    var data = google.visualization.arrayToDataTable(f,false);
+
+    var options = {
+      title: 'Cases',
+
+      hAxis: {title: 'Date', titleTextStyle: {color: 'black'}}
+    };
+
+    var chart = new google.visualization.LineChart(document.getElementById('chart_div1'));
+    chart.draw(data, options);
+  }
+
+  $(window).resize(function(){
+    drawChart1();
+    drawChart2();
+  });
+  /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+</script>
+
+
+<script th:inline="javascript">
+  var vkupno = /*[[${vkupno}]]*/
+
+  var m=new Array()
+
+
+  m[0]=['Year', 'Cases']
+  for(var i=0;i<vkupno.length;i++)
+  {
+
+    m[i+1]=[vkupno[i].datum + " ",vkupno[i].confirmed];
+  }
+
+  google.load("current",  {packages:["corechart"]});
+  google.charts.setOnLoadCallback(drawChart2);
+  function drawChart2() {
+    var data = google.visualization.arrayToDataTable(m,false);
+
+    var options = {
+      title: 'Cases',
+
+      hAxis: {title: 'Date', titleTextStyle: {color: 'black'}}
+    };
+
+    var chart = new google.visualization.LineChart(document.getElementById('vkupnoCases'));
+    chart.draw(data, options);
+  }
+
+  $(window).resize(function(){
+    drawChart1();
+    drawChart2();
+  });
+
+
+
+
+
+</script>
+
+
+
+
+
+
+
+<script th:inline="javascript">
+  var vkupno = /*[[${vkupno}]]*/
+
+
+
+  var la=new Array()
+
+
+  la[0]=['Year', 'Deaths']
+  for(var i=0;i<vkupno.length;i++)
+  {
+
+    la[i+1]=[vkupno[i].datum + " ",vkupno[i].deaths];
+  }
+
+  google.load("current",  {packages:["corechart"]});
+  google.charts.setOnLoadCallback(drawChart2);
+  function drawChart2() {
+    var data = google.visualization.arrayToDataTable(la,false);
+
+    var options = {
+      title: 'Cases',
+      colors: ['red'],
+      hAxis: {title: 'Date', titleTextStyle: {color: 'black'}}
+    };
+
+    var chart = new google.visualization.LineChart(document.getElementById('vkupnoDeaths'));
+    chart.draw(data, options);
+  }
+
+  $(window).resize(function(){
+    drawChart1();
+    drawChart2();
+  });
+
+
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<style>
+  .chart {
+    width: 100%;
+    min-height: 450px;
+  }
+  .row {
+    margin:0 !important;
+  }
+</style>
+
+
+
+
+
+
+
+
+
+
+
+<div class="row">
+  <div  class="col-md-12 text-center">
+
+    <p  style="width: 300px; font-family: Roboto"><h1 class=" text-center" th:text="${session.zemja}">MACEDONIA</h1> <img th:src="${countryInfo.countryImg}"> </p>
+    <form class=" text-center" th:method="GET" th:action="@{'/cases/country'}">
+      <form class="example" action="action_page.php">
+        <select id="countryyyy" name="search" class="btn btn-outline-primary active rounded-pill text-center" style="background: white; color: black; height: 31px; font-size: 13px; font-family:Roboto">
+          <option value="MACEDONIA">Select Country</option>
+          <option value="AFGHANISTAN">Afganistan</option>
+          <option value="ALBANIA">Albania</option>
+          <option value="ALGERIA">Algeria</option>
+          <option value="ANDORRA">Andorra</option>
+          <option value="ANGOLA">Angola</option>
+          <option value="ARGENTINA">Argentina</option>
+          <option value="ARMENIA">Armenia</option>
+          <option value="AUSTRALIA">Australia</option>
+          <option value="AUSTRIA">Austria</option>
+          <option value="AZERBAIJAN">Azerbaijan</option>
+          <option value="BAHAMAS">Bahamas</option>
+          <option value="BAHRAIN">Bahrain</option>
+          <option value="BANGLADESH">Bangladesh</option>
+          <option value="BARBADOS">Barbados</option>
+          <option value="BELARUS">Belarus</option>
+          <option value="BELGIUM">Belgium</option>
+          <option value="BELIZE">Belize</option>
+          <option value="BENIN">Benin</option>
+          <option value="BHUTAN">Bhutan</option>
+          <option value="BOLIVIA">Bolivia</option>
+          <option value="BiH">Bosnia & Herzegovina</option>
+          <option value="BOTSWANA">Botswana</option>
+          <option value="BRAZIL">Brazil</option>
+          <option value="BRUNEI">Brunei</option>
+          <option value="BULGARIA">Bulgaria</option>
+          <option value="BURKINA FASO">Burkina Faso</option>
+          <option value="BURUNDI">Burundi</option>
+          <option value="CAMBODIA">Cambodia</option>
+          <option value="CAMEROON">Cameroon</option>
+          <option value="CANADA">Canada</option>
+          <option value="CAPE VERDE">Cape Verde</option>
+          <option value="CENTRAL AFRICAN REPUBLIC">Central African Republic</option>
+          <option value="CHAD">Chad</option>
+          <option value="CHILE">Chile</option>
+          <option value="CHINA">China</option>
+          <option value="COLOMBIA">Colombia</option>
+          <option value="COMOROS">Comoros</option>
+          <option value="COSTA RICA">Costa Rica</option>
+          <option value="COTE DIVOIRE">Cote DIvoire</option>
+          <option value="CROATIA">Croatia</option>
+          <option value="CUBA">Cuba</option>
+          <option value="CYPRUS">Cyprus</option>
+          <option value="CZECH REPUBLIC">Czech Republic</option>
+          <option value="DENMARK">Denmark</option>
+          <option value="DJIBOUTI">Djibouti</option>
+          <option value="DOMINICA">Dominica</option>
+          <option value="DOMINICAN REPUBLIC">Dominican Republic</option>
+          <option value="EAST TIMOR">East Timor</option>
+          <option value="ECUADOR">Ecuador</option>
+          <option value="EGYPT">Egypt</option>
+          <option value="EL SALVADOR">El Salvador</option>
+          <option value="EQUATORIAL GUINEA">Equatorial Guinea</option>
+          <option value="ERITREA">Eritrea</option>
+          <option value="ESTONIA">Estonia</option>
+          <option value="ETHIOPIA">Ethiopia</option>
+          <option value="FIJI">Fiji</option>
+          <option value="FINLAND">Finland</option>
+          <option value="FRANCE">France</option>
+          <option value="GABON">Gabon</option>
+          <option value="GAMBIA">Gambia</option>
+          <option value="GEORGIA">Georgia</option>
+          <option value="GERMANY">Germany</option>
+          <option value="GHANA">Ghana</option>
+          <option value="GREAT BRITAIN">Great Britain</option>
+          <option value="GREECE">Greece</option>
+          <option value="GRENADA">Grenada</option>
+          <option value="GUATEMALA">Guatemala</option>
+          <option value="GUINEA">Guinea</option>
+          <option value="GUYANA">Guyana</option>
+          <option value="HAITI">Haiti</option>
+          <option value="HONDURAS">Honduras</option>
+          <option value="HUNGARY">Hungary</option>
+          <option value="ICELAND">Iceland</option>
+          <option value="INDONESIA">Indonesia</option>
+          <option value="INDIA">India</option>
+          <option value="IRAN">Iran</option>
+          <option value="IRAQ">Iraq</option>
+          <option value="IRELAND">Ireland</option>
+          <option value="ISRAEL">Israel</option>
+          <option value="ITALY">Italy</option>
+          <option value="JAMAICA">Jamaica</option>
+          <option value="JAPAN">Japan</option>
+          <option value="JORDAN">Jordan</option>
+          <option value="KAZAKHSTAN">Kazakhstan</option>
+          <option value="KENYA">Kenya</option>
+          <option value="KIRIBATI">Kiribati</option>
+          <option value="KUWAIT">Kuwait</option>
+          <option value="KYRGYZSTAN">Kyrgyzstan</option>
+          <option value="LAOS">Laos</option>
+          <option value="LATVIA">Latvia</option>
+          <option value="LEBANON">Lebanon</option>
+          <option value="LESOTHO">Lesotho</option>
+          <option value="LIBERIA">Liberia</option>
+          <option value="LIBYA">Libya</option>
+          <option value="LIECHTENSTEIN">Liechtenstein</option>
+          <option value="LITHUANIA">Lithuania</option>
+          <option value="LUXEMBOURG">Luxembourg</option>
+          <option value="MACEDONIA">Macedonia</option>
+          <option value="MADAGASCAR">Madagascar</option>
+          <option value="MALAYSIA">Malaysia</option>
+          <option value="MALAWI">Malawi</option>
+          <option value="MALDIVES">Maldives</option>
+          <option value="MALI">Mali</option>
+          <option value="MALTA">Malta</option>
+          <option value="MARSHALL ISLANDS">Marshall Islands</option>
+          <option value="MAURITANIA">Mauritania</option>
+          <option value="MAURITIUS">Mauritius</option>
+          <option value="MEXICO">Mexico</option>
+          <option value="MOLDOVA">Moldova</option>
+          <option value="MONACO">Monaco</option>
+          <option value="MONGOLIA">Mongolia</option>
+          <option value="MONTENEGRO">Montenegro</option>
+          <option value="MOROCCO">Morocco</option>
+          <option value="MOZAMBIQUE">Mozambique</option>
+          <option value="MYANMAR">Myanmar</option>
+          <option value="NEPAL">Nepal</option>
+          <option value="NETHERLANDS">Netherlands</option>
+          <option value="NEW ZEALAND">New Zealand</option>
+          <option value="NICARAGUA">Nicaragua</option>
+          <option value="NIGER">Niger</option>
+          <option value="NIGERIA">Nigeria</option>
+          <option value="NORWAY">Norway</option>
+          <option value="OMAN">Oman</option>
+          <option value="PAKISTAN">Pakistan</option>
+          <option value="PALESTINE">Palestine</option>
+          <option value="PANAMA">Panama</option>
+          <option value="PAPUA NEW GUINEA">Papua New Guinea</option>
+          <option value="PARAHUAY">Paraguay</option>
+          <option value="PERU">Peru</option>
+          <option value="PHILIPPINES">Philippines</option>
+          <option value="POLAND">Poland</option>
+          <option value="PORTUGAL">Portugal</option>
+          <option value="QATAR">Qatar</option>
+          <option value="MONTENEGRO">Montenegro</option>
+          <option value="SERBIA">Serbia</option>
+          <option value="ROMANIA">Romania</option>
+          <option value="RUSSIA">Russia</option>
+          <option value="RWANDA">Rwanda</option>
+          <option value="SAMOA">Samoa</option>
+          <option value="SAN MARINO">San Marino</option>
+          <option value="SAUDI ARABIA">Saudi Arabia</option>
+          <option value="SENEGAL">Senegal</option>
+          <option value="SEYCHELLES">Seychelles</option>
+          <option value="SIERRA LEONE">Sierra Leone</option>
+          <option value="SINGAPORE">Singapore</option>
+          <option value="SLOVAKIA">Slovakia</option>
+          <option value="SLOVENIA">Slovenia</option>
+          <option value="SOLOMON ISLANDS">Solomon Islands</option>
+          <option value="SOMALIA">Somalia</option>
+          <option value="SOUTH AFRICA">South Africa</option>
+          <option value="SPAIN">Spain</option>
+          <option value="SRI LANKA">Sri Lanka</option>
+          <option value="SUDAN">Sudan</option>
+          <option value="SURINAME">Suriname</option>
+          <option value="SWAZILAND">Swaziland</option>
+          <option value="SWEDEN">Sweden</option>
+          <option value="SWITZERLAND">Switzerland</option>
+          <option value="SYRIA">Syria</option>
+          <option value="TAIWAN">Taiwan</option>
+          <option value="TAJIKISTAN">Tajikistan</option>
+          <option value="TANZANIA">Tanzania</option>
+          <option value="THAILAND">Thailand</option>
+          <option value="TOGO">Togo</option>
+          <option value="TONGA">Tonga</option>
+          <option value="TUNISIA">Tunisia</option>
+          <option value="TURKEY">Turkey</option>
+          <option value="UGANDA">Uganda</option>
+          <option value="UNITED KINGDOM">United Kingdom</option>
+
+          <option value="UKRAINE">Ukraine</option>
+          <option value="UNITED ARAB EMIRATES">United Arab Emirates</option>
+          <option value="UNITED STATES OF AMERICA">United States of America</option>
+          <option value="URUGUAY">Uruguay</option>
+          <option value="UZBEKISTAN">Uzbekistan</option>
+          <option value="VANUATU">Vanuatu</option>
+          <option value="VATICAN CITY">Vatican City</option>
+          <option value="VENEZUELA">Venezuela</option>
+          <option value="VIETNAM">Vietnam</option>
+          <option value="YEMEN">Yemen</option>
+          <option value="ZAMBIA">Zambia</option>
+          <option value="ZIMBABWE">Zimbabwe</option>
+        </select>
+        <button style="height: 31px; font-size: 13px; font-family: Roboto" type="submit" class="btn btn-outline-primary   active rounded-pill">Search</button>
+      </form>
+    </form>
+
+  </div>
+</div>
+<div style="height: 45px"></div>
+
+<style>
+  .visina{
+    height: 100px;
+    font-family: Roboto;
+    padding: 3px;
+  }
+  .chartss{
+    height: 400px;
+  }
+</style>
+
+<div class="container-fluid">
+  <div style="font-family: Roboto" class="row my-custom-row justify-content-center align-items-center">
+
+    <div th:class="col-9" class="text-center">Last updated:
+      <h5 th:text="${datumm}"></h5>
+    </div>
+
+    <div class="col-sm-4 visina col-md-4 col-lg-4 bg-light text-center rounded-pill ">
+      <h3>Confirmed cases </h3> <h1 th:text="${countryInfo.cases}">56 000</h1>
+    </div>
+    <div class="col-sm-4 visina col-md-4 col-lg-4 bg-light offset-md-1 text-center rounded-pill     ">
+      <h3>Daily cases </h3> <h1 th:text="${countryInfo.totalCases}">4 000</h1>
+    </div>
+    <div style="height: 10px" class="col-12"></div>
+
+    <div class="col-sm-6 chartss col-md-5 col-lg-5     ">
+      <div id="vkupnoCases" class="chart"></div>
+    </div>
+    <div class="col-sm-6 chartss col-md-5 col-lg-5      ">
+      <div id="chart_div1" class="chart"></div>
+    </div>
+
+
+    <div style="height: 80px" class="col-12"></div>
+    <div class="col-sm-4 visina col-md-4 col-lg-4 bg-light text-center rounded-pill ">
+      <h3>Deaths  </h3> <h1 th:text="${countryInfo.deaths}">56 000</h1>
+    </div>
+    <div class="col-sm-4 visina col-md-4 col-lg-4 bg-light offset-md-1 text-center rounded-pill     ">
+      <h3>Daily deaths </h3> <h1 th:text="${countryInfo.todayDeaths}">4 000</h1>
+    </div>
+    <div style="height: 10px" class="col-12"></div>
+
+    <div class="col-sm-4 chartss col-md-5 col-lg-5     ">
+      <div id="vkupnoDeaths" class="chart"></div>
+    </div>
+    <div class="col-sm-4 chartss col-md-5 col-lg-5   ">
+      <div id="chart_div2" class="chart"></div>
+    </div>
+
+
+    <div style="height: 80px" class="col-12"></div>
+
+    <div class="col-sm-4 visina col-md-4 col-lg-4 bg-light text-center rounded-pill ">
+      <h3>Recovered </h3> <h1 th:text="${countryInfo.recovered}">56 000</h1>
+    </div>
+    <div class="col-sm-4 visina col-md-4 col-lg-4 bg-light offset-md-1 text-center rounded-pill     ">
+      <h3>Daily recovered </h3> <h1 th:text="${countryInfo.todayRecovered}">4 000</h1>
+    </div>
+    <div style="height: 10px" class="col-12"></div>
+
+    <div class="col-sm-4 chartss col-md-5 col-lg-5     ">
+
+        <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+        <script th:inline="javascript">
+          var pita = /*[[${pita}]]*/;
+
+          var  niziste = pita.split(".");
+          console.log(niziste);
+
+
+
+          google.charts.load("current", {packages:["corechart"]});
+          google.charts.setOnLoadCallback(drawChart);
+          function drawChart() {
+            var data = google.visualization.arrayToDataTable([
+              ['d', 'd'],
+              ['Cases',     parseInt(niziste[0])],
+              ['Deaths',  parseInt(niziste[3]) ],
+              ['Active',  parseInt(niziste[2]) ],
+              ['Recovered',       parseInt(niziste[1])]
+
+            ]);
+
+            var options = {
+              title: '',
+              is3D: true,
+            };
+
+            var chart = new google.visualization.PieChart(document.getElementById('piechart_3d'));
+            chart.draw(data, options);
+          }
+        </script>
+
+      <div id="piechart_3d" style="width: 900px; height: 500px;"></div>
+
+    </div>
+
+<!---
+
+    <div style="height: 80px" class="col-12"></div>
+
+    <div class="col-sm-4 visina col-md-4 col-lg-4 bg-light text-center rounded-pill ">
+      <h3>Vaccinated </h3> <h1>56 000</h1>
+    </div>
+    <div class="col-sm-4 visina col-md-4 col-lg-4 bg-light offset-md-1 text-center rounded-pill     ">
+      <h3>Daily vaccinated </h3> <h1>4 000</h1>
+    </div>
+    <div style="height: 10px" class="col-12"></div>
+
+    <div class="col-sm-4 chartss col-md-8 col-lg-5 bg-light    ">
+      <h3>Daily cases </h3> <h1>4 000</h1>
+    </div>
+
+--->
+<div style="height: 150px;"></div>
+
+</div>
+
+<br/>
+<br/>
+<br/>
+
+
+<footer class="bg-dark text-center text-white">
+  <!-- Grid container -->
+  <div class="container p-4 pb-0">
+    <!-- Section: Form -->
+    <section class="">
+      <form action="">
+        <!--Grid row-->
+        <div class="row d-flex justify-content-center">
+          <!--Grid column-->
+          <div class="col-auto">
+            <p class="pt-2">
+
+            </p>
+          </div>
+        </div>
+        <!--Grid row-->
+      </form>
+    </section>
+    <!-- Section: Form -->
+  </div>
+  <!-- Grid container -->
+</footer>
+
+
+
+
+</body>
+</html>
