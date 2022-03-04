@@ -5,8 +5,6 @@ import com.example.demo.services.NewServiceInterface;
 import com.google.auth.oauth2.GoogleCredentials;
 import com.google.cloud.bigquery.*;
 
-import org.json.JSONException;
-import org.json.JSONObject;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -59,16 +57,12 @@ public class Events {
             // once, and can be reused for multiple requests.
 
             String jsonPath="src\\main\\java\\com\\example\\demo\\json\\universal-chain-342203-af8ccc9a3556.json";
-
-
             GoogleCredentials credentials= null;
             try {
                 credentials = GoogleCredentials.fromStream(new FileInputStream(jsonPath));
                 System.out.println(credentials);
             } catch (IOException e) {
                 e.printStackTrace();
-                model.addAttribute("lala","ne moze ovaa" );
-                return "mapa.html";
             }
 
             BigQuery bigquery = BigQueryOptions.newBuilder()
@@ -127,7 +121,7 @@ public class Events {
 
 
             System.out.println("Query ran successfully");
-        } catch (BigQueryException | InterruptedException | JSONException e) {
+        } catch (BigQueryException | InterruptedException e) {
             System.out.println("Query did not run \n" + e.toString());
         }
 
