@@ -105,7 +105,7 @@ public class Cases {
         BufferedReader reader2;
 
         try{
-            URL url =new URL("https://corona.lmao.ninja/v2/countries");
+            URL url =new URL("https://disease.sh/v3/covid-19/countries");
             connection=(HttpURLConnection)url.openConnection();
             connection.setRequestMethod("GET");
             connection.setConnectTimeout(5000);
@@ -269,7 +269,7 @@ public class Cases {
         BufferedReader reader2;
 
         try{
-            URL url =new URL("https://corona.lmao.ninja/v2/countries");
+            URL url =new URL("https://disease.sh/v3/covid-19/countries");
             connection=(HttpURLConnection)url.openConnection();
             connection.setRequestMethod("GET");
             connection.setConnectTimeout(5000);

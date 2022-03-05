@@ -31,6 +31,9 @@ public class RestApi {
         StringBuffer responseContext2 = new StringBuffer();
         BufferedReader reader2;
 
+
+
+
         try{
             URL url =new URL("https://corona.lmao.ninja/v2/countries");
             connection=(HttpURLConnection)url.openConnection();
